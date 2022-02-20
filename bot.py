@@ -1,19 +1,11 @@
 import nextcord
+from nextcord.ext import commands
 import bot_values
 
-client = nextcord.Client()
-bot = nextcord.ext.Bot(command_prefix='$')
+bot = commands.Bot(command_prefix='$')
 
-@client.event
-async def on_ready():
-    print(f"{client.user} is now online!")
+@bot.command()
+async def echo(ctx, message):
+    await ctx.send(message)
 
-@client.event
-async def on_message(message):
-    if message.author == client.user:
-        return
-
-    if message.content.startswith('$hello'):
-        await message.channel.send('Hello!')
-
-client.run(bot_values.bot_token)
+bot.run(bot_values.bot_token)
