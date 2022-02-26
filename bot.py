@@ -4,7 +4,7 @@ import cogs
 from cogs.simple import Simple
 import bot_values
 
-bot = commands.Bot(command_prefix='F')
+bot = commands.Bot(command_prefix=r"fon ")
 
 bot.add_cog(Simple(bot))
 

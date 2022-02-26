@@ -1,5 +1,6 @@
 # This file contains simple, miscellaneous commands that don't belong in any other category
 
+from unicodedata import name
 import nextcord
 from nextcord.ext import commands
 import time
@@ -16,7 +17,8 @@ class Simple(commands.Cog):
         await ctx.trigger_typing()
         end = time.perf_counter()
         # Create the strings and embed
-        ping_text = f":globe_with_meridians: Ping: {int((end - start) * 1000)}ms"
-        heartbeat_text = f" :heart: Heartbeat: {int(self.bot.latency * 1000)}ms"
-        ping_embed = nextcord.Embed(title="Pong! :ping_pong:", description=f"{ping_text}\n{heartbeat_text}")
+        dark_yellow = 0xffe600
+        ping_embed = nextcord.Embed(color=dark_yellow, title="Pong! :ping_pong:")
+        ping_embed.add_field(name="Network RTT", value=f":globe_with_meridians: `{int((end-start)*1000)}`ms")
+        ping_embed.add_field(name=f"Bot Latency", value=f":heart: `{int(self.bot.latency*1000)}`ms")
         await ctx.send(embed=ping_embed)
