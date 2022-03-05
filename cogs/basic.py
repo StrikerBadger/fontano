@@ -3,6 +3,7 @@
 import nextcord
 from nextcord.ext import commands
 import time
+import bot_values
 
 class Basic(commands.Cog):
     def __init__(self, bot):
@@ -40,3 +41,17 @@ class Basic(commands.Cog):
         ping_embed.add_field(name="Network RTT", value=f":globe_with_meridians: `{int((end-start)*1000)}`ms")
         ping_embed.add_field(name=f"Bot Latency", value=f":heart: `{int(self.bot.latency*1000)}`ms")
         await ctx.send(embed=ping_embed)
+    
+
+    # A simple "say"-type command
+    @commands.command(description="Echoes any text message given (Developer only)")
+    async def echo(self, ctx, message):
+        """
+        Sends back the message that it has been given
+        """
+        # If author is not Aaron, don't echo
+        if ctx.author.id not in bot_values.aaron_ids:
+            await ctx.send("This command is reserved for the bot's developer.")
+            return
+        await ctx.send(message)
+
