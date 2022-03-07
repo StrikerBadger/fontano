@@ -39,6 +39,7 @@ class Place(commands.Cog):
                     await time.sleep(self.wait_period)
                     burst_count = 0
                 await ctx.send(f".place setpixel {x} {y} {self.rgb_to_hex(pixel[:3])}")
+                burst_count += 1
 
     # To convert rgb values to hex color values
     def rgb_to_hex(rgb):
