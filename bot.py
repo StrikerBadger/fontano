@@ -26,7 +26,7 @@ async def relaystart(ctx, channel_id=768600365602963496): # By default this is t
     await ctx.send(f'Relay-Mode activated for channel <#{channel_id}>.')
 
 @bot.command()
-async def relay(ctx, message):
+async def relay(ctx, *, message):
     if ctx.author.id not in in_relaymode:
         await ctx.send('You are not currently in Relay-Mode.')
         return
