@@ -3,7 +3,7 @@ import discord
 from discord.ext import commands
 
 DEBUG = True
-ADMINS = [481917645067780097]
+ADMINS = [481917645067780097, 420702343860977695]
 in_relaymode = {}
 
 intents = discord.Intents.default()
