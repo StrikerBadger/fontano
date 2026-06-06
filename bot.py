@@ -43,6 +43,8 @@ async def relaystop(ctx):
 
 @bot.event
 async def on_message(message):
+    if bot.user.id == message.author.id:
+        return
     if message.channel.id in in_relaymode.values():
         for relayee_id, relaychannel_id in in_relaymode.items():
             if relaychannel_id in in_relaymode.values():
