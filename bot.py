@@ -3,10 +3,16 @@ from sys import argv
 import discord
 from discord.ext import commands
 
-BOT_TOKEN = environ.get('FONDEVO_TOKEN') if argv[1].lower() == 'debug'\
+DEBUG = len(argv) > 1 and argv[1].lower() == 'debug'
+BOT_TOKEN = environ.get('FONDEVO_TOKEN') if DEBUG\
             else environ.get('FONTANO_TOKEN')
-DEBUG = True
 ADMINS = [481917645067780097, 420702343860977695]
+
+if DEBUG:
+    print('Bot starts in Debug-Mode.')
+else:
+    print('Bot starts in Normal-Mode.')
+
 in_relaymode = {}
 
 intents = discord.Intents.default()
@@ -44,6 +50,10 @@ async def relaystop(ctx):
         in_relaymode.pop(ctx.author.id)
     await ctx.send('Relay-Mode is off now.')
 
+@bot.command()
+async def briefing(ctx):
+    await ctx.send('Here is your first briefing.')
+
 @bot.event
 async def on_message(message):
     if bot.user.id == message.author.id:
@@ -59,4 +69,4 @@ async def on_message(message):
     await bot.process_commands(message)
 
 
-bot.run(environ.get('FONTANO_TOKEN'))
+bot.run(BOT_TOKEN)
