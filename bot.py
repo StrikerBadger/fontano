@@ -53,13 +53,12 @@ async def relaystop(ctx):
 
 async def send_briefing(ctx=None):
     if ctx is not None:
-        ctx.send('Your first briefing.')
+        await ctx.send('Your first briefing.')
     else:
         #TODO: Send to each subscriber if called per task
         pass
 
-@bot.command()
-@tasks.loop(time=dt.time(hour=6))
+@bot.command(name='briefing')
 async def briefing_command(ctx):
     await send_briefing(ctx=ctx)
 
