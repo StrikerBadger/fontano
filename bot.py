@@ -1,7 +1,10 @@
 from os import environ
+from sys import argv
 import discord
 from discord.ext import commands
 
+BOT_TOKEN = environ.get('FONDEVO_TOKEN') if argv[1].lower() == 'debug'\
+            else environ.get('FONTANO_TOKEN')
 DEBUG = True
 ADMINS = [481917645067780097, 420702343860977695]
 in_relaymode = {}
