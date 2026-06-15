@@ -1,7 +1,8 @@
 from os import environ
 from sys import argv
 import discord
-from discord.ext import commands
+from discord.ext import tasks, commands
+import datetime as dt
 
 DEBUG = len(argv) > 1 and argv[1].lower() == 'debug'
 BOT_TOKEN = environ.get('FONDEVO_TOKEN') if DEBUG\
@@ -50,9 +51,24 @@ async def relaystop(ctx):
         in_relaymode.pop(ctx.author.id)
     await ctx.send('Relay-Mode is off now.')
 
+async def send_briefing(ctx=None):
+    if ctx is not None:
+        ctx.send('Your first briefing.')
+    else:
+        #TODO: Send to each subscriber if called per task
+        pass
+
 @bot.command()
-async def briefing(ctx):
-    await ctx.send('Here is your first briefing.')
+@tasks.loop(time=dt.time(hour=6))
+async def briefing_command(ctx):
+    await send_briefing(ctx=ctx)
+
+@tasks.loop(time=dt.time(hour=6))
+async def briefing_task():
+    if DEBUG:
+        print('This will send the briefing to subscribers')
+    await send_briefing()
+
 
 @bot.event
 async def on_message(message):
