@@ -15,6 +15,7 @@ class RelayLogic(commands.Cog):
         self.in_relaymode[ctx.author.id] = int(channel_id)
         await ctx.send(f'Relay-Mode activated for channel <#{channel_id}>.')
 
+    # TODO: Fix Relay-Mode Flow
     @commands.command()
     async def relay(self, ctx, *, message):
         if ctx.author.id not in self.in_relaymode:
